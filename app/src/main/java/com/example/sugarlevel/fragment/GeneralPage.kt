@@ -4,9 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,8 @@ import android.widget.TextView
 import android.widget.TimePicker
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.sugarlevel.R
 import com.example.sugarlevel.databinding.GeneralPageFragmentBinding
 import com.example.sugarlevel.db.MyDBHelper
@@ -123,8 +123,6 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         }
         pickDate()
     }
-
-
 
     private fun pickDate(){
         bindingGeneralPage.txtRecord.setOnClickListener{

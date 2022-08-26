@@ -1,17 +1,13 @@
 package com.example.sugarlevel
 
 import android.Manifest
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
-import com.example.sugarlevel.fragment.GeneralPage
-import androidx.core.app.ActivityCompat
-
-import android.content.pm.PackageManager
-
 import android.app.Activity
-
-
+import android.content.pm.PackageManager
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import com.example.sugarlevel.fragment.GeneralPage
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +30,10 @@ class MainActivity : AppCompatActivity() {
         }
         verifyStoragePermissions(this)
     }
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
+
     fun verifyStoragePermissions(activity: Activity?) {
         // Check if we have write permission
         val permission =
