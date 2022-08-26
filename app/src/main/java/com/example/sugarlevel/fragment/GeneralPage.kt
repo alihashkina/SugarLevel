@@ -5,6 +5,8 @@ import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,7 +71,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
         bindingGeneralPage.txtSugar.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             var handled = false
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+            if (actionId == EditorInfo.IME_ACTION_DONE && bindingGeneralPage.txtSugar.text.toString() != "") {
                 bindingGeneralPage.btnSave.callOnClick()
                 handled = true
             }
@@ -77,6 +79,10 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         })
 
         bindingGeneralPage.btnPlus.setOnClickListener {
+            if(bindingGeneralPage.txtSugar.text.toString() == ""){
+                bindingGeneralPage.txtSugar.setText("0.0")
+                bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
+            }
             if(bindingGeneralPage.txtSugar.text.toString().toDouble() < 30.0) {
                 bindingGeneralPage.txtSugar.setText(
                     "${((bindingGeneralPage.txtSugar.text.toString().toDouble() * 10) + 1)/10}"
@@ -86,9 +92,14 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             else{
                 bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
                 bindingGeneralPage.txtSugar.setText("30.0")
+                bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
             }
         }
         bindingGeneralPage.btnMinus.setOnClickListener {
+            if(bindingGeneralPage.txtSugar.text.toString() == ""){
+                bindingGeneralPage.txtSugar.setText("0.0")
+                bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
+            }
             if(bindingGeneralPage.txtSugar.text.toString().toDouble() != 0.0) {
                 bindingGeneralPage.txtSugar.setText(
                     "${((bindingGeneralPage.txtSugar.text.toString().toDouble() * 10) - 1)/10}"
@@ -98,23 +109,26 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             else{
                 bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
                 bindingGeneralPage.txtSugar.setText("0.0")
+                bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
             }
         }
 
         viewModel.graph(bindingGeneralPage.graph, requireContext())
 
         bindingGeneralPage.btnSave.setOnClickListener {
-            viewModel.chipsCheck(bindingGeneralPage.chip1, bindingGeneralPage.chip2, bindingGeneralPage.chip3, bindingGeneralPage.chip4, bindingGeneralPage.chip5)
+            if(bindingGeneralPage.txtSugar.text.toString() != ""){
+                viewModel.chipsCheck(bindingGeneralPage.chip1, bindingGeneralPage.chip2, bindingGeneralPage.chip3, bindingGeneralPage.chip4, bindingGeneralPage.chip5)
 
-            var cv = ContentValues()
-            cv.put("DATE", "${bindingGeneralPage.txtRecord.text.drop(7)}")
-            cv.put("SUGAR", bindingGeneralPage.txtSugar.text.toString())
-            cv.put("CHIPS", "${chipsCheckTxt}")
-            MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
-            chipsCheckTxt = ""
-            viewModel.graph(bindingGeneralPage.graph, requireContext())
-            bindingGeneralPage.scrollGraph.post {
-                bindingGeneralPage.scrollGraph.fullScroll(View.FOCUS_RIGHT)
+                var cv = ContentValues()
+                cv.put("DATE", "${bindingGeneralPage.txtRecord.text.drop(7)}")
+                cv.put("SUGAR", bindingGeneralPage.txtSugar.text.toString())
+                cv.put("CHIPS", "${chipsCheckTxt}")
+                MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
+                chipsCheckTxt = ""
+                viewModel.graph(bindingGeneralPage.graph, requireContext())
+                bindingGeneralPage.scrollGraph.post {
+                    bindingGeneralPage.scrollGraph.fullScroll(View.FOCUS_RIGHT)
+                }
             }
         }
 

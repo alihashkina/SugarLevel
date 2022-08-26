@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
         verifyStoragePermissions(this)
     }
+
     override fun onBackPressed() {
         moveTaskToBack(true)
     }

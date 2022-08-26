@@ -2,6 +2,8 @@ package com.example.sugarlevel.viewModel
 
 import android.content.Context
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import com.example.sugarlevel.R
@@ -13,7 +15,9 @@ import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
 import com.example.sugarlevel.fragment.GeneralPage.Companion.dateDB
 import com.google.android.material.chip.Chip
 import im.dacer.androidcharts.LineView
+import im.dacer.androidcharts.MyUtils
 import java.math.RoundingMode
+import java.security.AccessController.getContext
 import java.util.*
 import kotlin.collections.ArrayList
 

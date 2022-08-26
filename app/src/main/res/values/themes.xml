@@ -98,4 +98,13 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">10sp</item>
     </style>
+
+    <style name="BottomTextPaint" parent="LineView">
+        <item name="android:labelTextSize">30sp</item>
+        <item name="android:keyTextSize">30sp</item>
+        <item name="sizePercent">30</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+
 </resources>
