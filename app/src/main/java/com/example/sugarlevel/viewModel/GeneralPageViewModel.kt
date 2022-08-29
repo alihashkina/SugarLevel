@@ -1,15 +1,18 @@
 package com.example.sugarlevel.viewModel
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.example.sugarlevel.R
 import com.example.sugarlevel.db.MyDBHelper
 import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayDateGraph
+import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayIdGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySugarGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
 import com.example.sugarlevel.fragment.GeneralPage.Companion.dateDB
@@ -81,13 +84,12 @@ class GeneralPageViewModel : ViewModel() {
     fun graph(graph: LineView, context: Context){
         var helper = MyDBHelper(context!!)
         var db = helper.readableDatabase
-        var rs = db.rawQuery("SELECT DATE, SUGAR, CHIPS FROM USERS", null)
+        var rs = db.rawQuery("SELECT DATE, SUGAR, CHIPS, DAYS, MONTH, YEARS, HOURS, MINUTE FROM USERS ORDER BY YEARS, MONTH, DAYS, HOURS, MINUTE ASC", null)
         arrayDateGraph = arrayListOf()
         arraySugarGraph = arrayListOf()
 
         while (rs.moveToNext()) {
             dateDB = rs.getString(0)
-//            var sugarDB = rs.getString(1).toBigDecimal().setScale(2, RoundingMode.HALF_UP).toDouble()
             var sugarDB = rs.getString(1).toFloat()
             rs.getString(2)
             arrayDateGraph.add(dateDB)

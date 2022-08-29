@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -27,6 +29,7 @@ import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.hour
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.minute
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.month
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.year
+import java.util.*
 
 class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -37,6 +40,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         var dateDB = ""
         var arrayDateGraph : MutableList<String> = mutableListOf()
         var arraySugarGraph : MutableList<Float> = mutableListOf()
+        var arrayIdGraph : MutableList<Int> = mutableListOf()
         lateinit var bindingGeneralPage: GeneralPageFragmentBinding
     }
 
@@ -118,11 +122,15 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         bindingGeneralPage.btnSave.setOnClickListener {
             if(bindingGeneralPage.txtSugar.text.toString() != ""){
                 viewModel.chipsCheck(bindingGeneralPage.chip1, bindingGeneralPage.chip2, bindingGeneralPage.chip3, bindingGeneralPage.chip4, bindingGeneralPage.chip5)
-
                 var cv = ContentValues()
                 cv.put("DATE", "${bindingGeneralPage.txtRecord.text.drop(7)}")
                 cv.put("SUGAR", bindingGeneralPage.txtSugar.text.toString())
                 cv.put("CHIPS", "${chipsCheckTxt}")
+                cv.put("DAYS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(0).toInt())
+                cv.put("MONTH", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(1).toInt())
+                cv.put("YEARS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(2).dropLast(5).replace(" ", "").toInt())
+                cv.put("HOURS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(" ")?.get(1).dropLast(2).replace(":", "").toInt())
+                cv.put("MINUTE", bindingGeneralPage.txtRecord.text.toString().drop(7).split(":")?.get(1).toInt())
                 MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
                 chipsCheckTxt = ""
                 viewModel.graph(bindingGeneralPage.graph, requireContext())
