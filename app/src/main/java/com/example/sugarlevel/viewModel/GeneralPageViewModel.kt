@@ -1,14 +1,12 @@
 package com.example.sugarlevel.viewModel
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.view.marginBottom
 import androidx.lifecycle.ViewModel
@@ -87,7 +85,7 @@ class GeneralPageViewModel : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    fun graph(graph: LineView, context: Context){
+    fun graph(graph: LineView, context: Context, scrollGraph: HorizontalScrollView, txtOnbord: LinearLayout){
         var helper = MyDBHelper(context!!)
         var db = helper.readableDatabase
         var rs = db.rawQuery("SELECT DATE, SUGAR, CHIPS, DAYS, MONTH, YEARS, HOURS, MINUTE FROM USERS ORDER BY YEARS, MONTH, DAYS, HOURS, MINUTE ASC", null)
@@ -103,13 +101,15 @@ class GeneralPageViewModel : ViewModel() {
         }
 
         if(dateDB != "") {
+            scrollGraph.visibility = View.VISIBLE
+            txtOnbord.visibility = View.GONE
             var sugarLists = ArrayList<ArrayList<Float>>()
             sugarLists = arrayListOf(arraySugarGraph as ArrayList<Float>)
             graph.setDrawDotLine(false) //optional
             graph.getResources().getColor(R.color.md_white_1000)
             graph.setShowPopup(LineView.SHOW_POPUPS_All) //optional
             graph.setBottomTextList(arrayDateGraph as ArrayList<String>?)
-            graph.setColorArray(intArrayOf(R.color.md_blue_700, R.color.md_blue_700, R.color.md_blue_700))
+            graph.setColorArray(intArrayOf(Color.RED))
             graph.marginBottom
             graph.paddingBottom
             graph.setFloatDataList(sugarLists)

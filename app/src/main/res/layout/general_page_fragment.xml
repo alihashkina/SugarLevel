@@ -48,12 +48,38 @@
 
         </com.google.android.material.tabs.TabLayout>
 
+<LinearLayout
+    android:id="@+id/txtOnbord"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="25dp"
+    android:layout_weight="1">
+
+    <TextView
+            android:id="@+id/txtOnbordH6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style = "@style/TextAppearance.MaterialComponents.Headline6"
+            android:text="How to use this application " />
+    <TextView
+        android:id="@+id/txtOnbordB1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style = "@style/TextAppearance.MaterialComponents.Body1"
+        android:text="Set your current sugar level and press save button. You also can change the date and set exact tags about your activity, food and health.\nWe are happy to help you track your sugar level and stay healthy" />
+</LinearLayout>
+
 
         <HorizontalScrollView
             android:id="@+id/scrollGraph"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
+            android:visibility="gone"
             android:layout_marginBottom="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"

@@ -117,7 +117,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             }
         }
 
-        viewModel.graph(bindingGeneralPage.graph, requireContext())
+        viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord)
 
         bindingGeneralPage.btnSave.setOnClickListener {
             if(bindingGeneralPage.txtSugar.text.toString() != ""){
@@ -133,7 +133,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                 cv.put("MINUTE", bindingGeneralPage.txtRecord.text.toString().drop(7).split(":")?.get(1).toInt())
                 MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
                 chipsCheckTxt = ""
-                viewModel.graph(bindingGeneralPage.graph, requireContext())
+                viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord)
                 bindingGeneralPage.scrollGraph.post {
                     bindingGeneralPage.scrollGraph.fullScroll(View.FOCUS_RIGHT)
                 }
