@@ -1,12 +1,16 @@
 package com.example.sugarlevel.viewModel
 
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.view.marginBottom
 import androidx.lifecycle.ViewModel
 import com.example.sugarlevel.R
 import com.example.sugarlevel.db.MyDBHelper
@@ -17,6 +21,7 @@ import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySugarGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
 import com.example.sugarlevel.fragment.GeneralPage.Companion.dateDB
 import com.google.android.material.chip.Chip
+import com.google.android.material.slider.LabelFormatter
 import im.dacer.androidcharts.LineView
 import im.dacer.androidcharts.MyUtils
 import java.math.RoundingMode
@@ -81,6 +86,7 @@ class GeneralPageViewModel : ViewModel() {
         txtRecord.text = "Record $day.${month + 1}.$year $hour:$minute"
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun graph(graph: LineView, context: Context){
         var helper = MyDBHelper(context!!)
         var db = helper.readableDatabase
@@ -97,14 +103,16 @@ class GeneralPageViewModel : ViewModel() {
         }
 
         if(dateDB != "") {
-            var dataLists = ArrayList<ArrayList<Float>>()
-            dataLists = arrayListOf(arraySugarGraph as ArrayList<Float>)
+            var sugarLists = ArrayList<ArrayList<Float>>()
+            sugarLists = arrayListOf(arraySugarGraph as ArrayList<Float>)
             graph.setDrawDotLine(false) //optional
             graph.getResources().getColor(R.color.md_white_1000)
             graph.setShowPopup(LineView.SHOW_POPUPS_All) //optional
             graph.setBottomTextList(arrayDateGraph as ArrayList<String>?)
             graph.setColorArray(intArrayOf(R.color.md_blue_700, R.color.md_blue_700, R.color.md_blue_700))
-            graph.setFloatDataList(dataLists)
+            graph.marginBottom
+            graph.paddingBottom
+            graph.setFloatDataList(sugarLists)
         }
     }
 }
