@@ -14,7 +14,6 @@ import com.example.sugarlevel.R
 import com.example.sugarlevel.db.MyDBHelper
 import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayDateGraph
-import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayIdGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySugarGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
 import com.example.sugarlevel.fragment.GeneralPage.Companion.dateDB
