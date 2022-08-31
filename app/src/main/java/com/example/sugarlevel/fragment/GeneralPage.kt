@@ -40,7 +40,6 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         var dateDB = ""
         var arrayDateGraph : MutableList<String> = mutableListOf()
         var arraySugarGraph : MutableList<Float> = mutableListOf()
-        var arrayIdGraph : MutableList<Int> = mutableListOf()
         lateinit var bindingGeneralPage: GeneralPageFragmentBinding
     }
 
@@ -49,7 +48,6 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     var saveday = 0
     var savehour = 0
     var saveminute = 0
-
 
     private lateinit var viewModel: GeneralPageViewModel
 
