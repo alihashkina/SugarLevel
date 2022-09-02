@@ -4,10 +4,12 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import com.example.sugarlevel.fragment.GeneralPage
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,4 +50,5 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
+
 }

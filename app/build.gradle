@@ -65,4 +65,7 @@ dependencies {
 
     // Graph
     implementation 'im.dacer:AndroidCharts:1.0.4'
+
+    //Dialog
+    implementation 'com.google.android.material:material:1.2.0'
 }

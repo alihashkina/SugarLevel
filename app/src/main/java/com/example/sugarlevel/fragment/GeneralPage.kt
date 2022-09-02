@@ -29,6 +29,7 @@ import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.hour
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.minute
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.month
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.year
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.*
 
 class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -48,7 +49,6 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     var saveday = 0
     var savehour = 0
     var saveminute = 0
-
 
     private lateinit var viewModel: GeneralPageViewModel
 
@@ -143,6 +143,10 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             viewModel.getDateTimeCalendar(bindingGeneralPage.txtRecord)
         }
         pickDate()
+
+        bindingGeneralPage.imgMore.setOnClickListener{
+            MoreChipsDialog().show(fragmentManager!!, "d")
+        }
     }
 
     private fun pickDate(){
@@ -165,8 +169,5 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         saveminute = minute
         bindingGeneralPage.txtRecord.text = "Record $saveday.${savemonth + 1}.$saveyear $savehour:$saveminute"
     }
-
-
-
 
 }

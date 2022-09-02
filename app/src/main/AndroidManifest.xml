@@ -17,6 +17,7 @@
         android:theme="@style/Theme.SugarLevel">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             android:exported="true">
             <intent-filter>
