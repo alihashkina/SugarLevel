@@ -49,6 +49,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     var savehour = 0
     var saveminute = 0
 
+
     private lateinit var viewModel: GeneralPageViewModel
 
     override fun onCreateView(
