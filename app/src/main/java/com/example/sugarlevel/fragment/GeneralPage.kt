@@ -37,7 +37,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     companion object {
         fun newInstance() = GeneralPage()
         var editSugar = ""
-        var chipsCheckTxt = ""
+        var chipsCheckTxt: MutableList<String> = mutableListOf()
         var dateDB = ""
         var arrayDateGraph : MutableList<String> = mutableListOf()
         var arraySugarGraph : MutableList<Float> = mutableListOf()
@@ -98,6 +98,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                 bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
             }
         }
+        Log.i("CHIPS", "$chipsCheckTxt")
         bindingGeneralPage.btnMinus.setOnClickListener {
             if(bindingGeneralPage.txtSugar.text.toString() == ""){
                 bindingGeneralPage.txtSugar.setText("0.0")
@@ -120,18 +121,21 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
 
         bindingGeneralPage.btnSave.setOnClickListener {
             if(bindingGeneralPage.txtSugar.text.toString() != ""){
-                viewModel.chipsCheck(bindingGeneralPage.chip1, bindingGeneralPage.chip2, bindingGeneralPage.chip3, bindingGeneralPage.chip4, bindingGeneralPage.chip5)
+                viewModel.chipsCheck(bindingGeneralPage.chipsGeneral, view!!)
                 var cv = ContentValues()
+                var chipsCheckTxtDistinct = chipsCheckTxt.distinct()
                 cv.put("DATE", "${bindingGeneralPage.txtRecord.text.drop(7)}")
                 cv.put("SUGAR", bindingGeneralPage.txtSugar.text.toString())
-                cv.put("CHIPS", "${chipsCheckTxt}")
+                cv.put("CHIPS", "${chipsCheckTxtDistinct}")
                 cv.put("DAYS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(0).toInt())
                 cv.put("MONTH", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(1).toInt())
                 cv.put("YEARS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(2).dropLast(5).replace(" ", "").toInt())
                 cv.put("HOURS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(" ")?.get(1).dropLast(2).replace(":", "").toInt())
                 cv.put("MINUTE", bindingGeneralPage.txtRecord.text.toString().drop(7).split(":")?.get(1).toInt())
                 MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
-                chipsCheckTxt = ""
+               Log.i("LOG", "$chipsCheckTxtDistinct")
+                chipsCheckTxtDistinct = arrayListOf()
+                chipsCheckTxt = arrayListOf()
                 viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord)
                 bindingGeneralPage.scrollGraph.post {
                     bindingGeneralPage.scrollGraph.fullScroll(View.FOCUS_RIGHT)

@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.SugarLevel" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/md_blue_700</item>
-        <item name="colorPrimaryVariant">@color/md_blue_400</item>
+        <item name="colorPrimary">@color/md_light_blue_700</item>
+        <item name="colorPrimaryVariant">@color/md_light_blue_400</item>
         <item name="colorOnPrimary">@color/md_white_1000</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/md_blue_700</item>
-        <item name="colorSecondaryVariant">@color/md_blue_400</item>
+        <item name="colorSecondary">@color/md_light_blue_700</item>
+        <item name="colorSecondaryVariant">@color/md_light_blue_400</item>
         <item name="colorOnSecondary">@color/md_black_1000</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -114,6 +114,18 @@
     <style name="AppBottomSheetDialogTheme"
         parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
-        <item name="colorAccent">@color/md_blue_700</item>
+        <item name="colorAccent">@color/md_light_blue_700</item>
     </style>
+
+    <style name="Widget.MaterialComponents.Chip.Choice.Red" parent="Base.Widget.MaterialComponents.Chip">
+        <item name="android:checkable">true</item>
+        <item name="chipIconVisible">false</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="closeIconVisible">false</item>
+        <item name="checkedIcon">@drawable/ic_mtrl_chip_checked_black</item>
+        <item name="android:textColor">@color/mtrl_choice_chip_text_color</item>
+        <item name="chipBackgroundColor">@color/mtrl_choice_chip_background_color</item>
+        <item name="rippleColor">@color/md_red_700</item>
+    </style>
+
 </resources>

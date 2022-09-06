@@ -1,18 +1,21 @@
 package com.example.sugarlevel.fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.sugarlevel.R
 import com.example.sugarlevel.databinding.MoreChipsDialogFragmentBinding
+import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
 import com.example.sugarlevel.viewModel.MoreChipsDialogViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
 
 class MoreChipsDialog : BottomSheetDialogFragment() {
 
@@ -20,8 +23,6 @@ class MoreChipsDialog : BottomSheetDialogFragment() {
         fun newInstance() = MoreChipsDialog()
         lateinit var bindingMoreChipsDialog: MoreChipsDialogFragmentBinding
     }
-
-
 
     private lateinit var viewModel: MoreChipsDialogViewModel
 
@@ -45,6 +46,11 @@ class MoreChipsDialog : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MoreChipsDialogViewModel::class.java)
+
+        viewModel.chipsColorHealthy(bindingMoreChipsDialog.chipGroupHealthy, view!!)
+        viewModel.chipsColorUnhealthy(bindingMoreChipsDialog.chipGroupUnhealthy, view!!)
+        viewModel.chipsColorSymptoms(bindingMoreChipsDialog.chipGroupSymptoms, view!!)
+        viewModel.chipsColorCare(bindingMoreChipsDialog.chipGroupCare, view!!)
 
     }
 

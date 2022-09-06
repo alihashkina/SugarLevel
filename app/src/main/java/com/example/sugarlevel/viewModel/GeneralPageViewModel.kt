@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.view.children
 import androidx.core.view.marginBottom
 import androidx.lifecycle.ViewModel
 import com.example.sugarlevel.R
@@ -15,9 +16,11 @@ import com.example.sugarlevel.db.MyDBHelper
 import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayDateGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySugarGraph
+import com.example.sugarlevel.fragment.GeneralPage.Companion.bindingGeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
 import com.example.sugarlevel.fragment.GeneralPage.Companion.dateDB
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.slider.LabelFormatter
 import im.dacer.androidcharts.LineView
 import im.dacer.androidcharts.MyUtils
@@ -37,42 +40,22 @@ class GeneralPageViewModel : ViewModel() {
         var minute = 0
     }
 
-    fun chipsCheck(chip1: Chip, chip2: Chip, chip3: Chip, chip4: Chip, chip5: Chip){
-        if (chip1.isChecked) {
-            if(chipsCheckTxt.contains(GeneralPage.bindingGeneralPage.chip1.text.toString())){
-            }else{
-                chipsCheckTxt = chipsCheckTxt + "${GeneralPage.bindingGeneralPage.chip1.text.toString() + " "}"
-            }
-        }
-
-        if (chip2.isChecked) {
-            if(chipsCheckTxt.contains(GeneralPage.bindingGeneralPage.chip2.text.toString())){
-            }else {
-                chipsCheckTxt = chipsCheckTxt + "${GeneralPage.bindingGeneralPage.chip2.text.toString() + " "}"
-            }
-        }
-
-        if (chip3.isChecked) {
-            if(chipsCheckTxt.contains(GeneralPage.bindingGeneralPage.chip3.text.toString())){
-            }else {
-                chipsCheckTxt = chipsCheckTxt + "${GeneralPage.bindingGeneralPage.chip3.text.toString() + " "}"
-            }
-        }
-
-        if (chip4.isChecked) {
-            if(chipsCheckTxt.contains(GeneralPage.bindingGeneralPage.chip4.text.toString())){
-            }else {
-                chipsCheckTxt = chipsCheckTxt + "${GeneralPage.bindingGeneralPage.chip4.text.toString() + " "}"
-            }
-        }
-
-        if (chip5.isChecked) {
-            if(chipsCheckTxt.contains(GeneralPage.bindingGeneralPage.chip5.text.toString())){
-            }else {
-                chipsCheckTxt = chipsCheckTxt + "${GeneralPage.bindingGeneralPage.chip5.text.toString() + " "}"
+    fun chipsCheck(chipsGeneral: ChipGroup, view: View){
+        handleSelection(view)
+        chipsGeneral.children.forEach {
+            val chip = it as Chip
+            (it as Chip).setOnCheckedChangeListener { buttonView, isChecked ->
+                handleSelection(view)
             }
         }
     }
+
+     private fun handleSelection(view: View) {
+         bindingGeneralPage.chipsGeneral.checkedChipIds.forEach {
+             val chip = view?.findViewById<Chip>(it)
+             chipsCheckTxt.add("${chip?.text}")
+         }
+     }
 
     fun getDateTimeCalendar(txtRecord: TextView){
         year = calendar.get(Calendar.YEAR)

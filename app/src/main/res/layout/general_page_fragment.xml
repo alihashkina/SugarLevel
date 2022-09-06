@@ -142,6 +142,7 @@
                             android:orientation="horizontal">
 
                             <com.google.android.material.chip.ChipGroup
+                                android:id="@+id/chipsGeneral"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="20dp">
@@ -151,7 +152,7 @@
                                     style="@style/Widget.MaterialComponents.Chip.Choice"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Insulin"
+                                    android:text="Urinate a lot"
                                     android:textColor="@color/md_black_1000" />
 
                                 <com.google.android.material.chip.Chip
@@ -159,7 +160,7 @@
                                     style="@style/Widget.MaterialComponents.Chip.Choice"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Weakness"
+                                    android:text="Thirsty"
                                     android:textColor="@color/md_black_1000" />
 
                                 <com.google.android.material.chip.Chip
@@ -167,7 +168,7 @@
                                     style="@style/Widget.MaterialComponents.Chip.Choice"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Sport"
+                                    android:text="Hunger"
                                     android:textColor="@color/md_black_1000" />
 
                                 <com.google.android.material.chip.Chip
@@ -175,17 +176,8 @@
                                     style="@style/Widget.MaterialComponents.Chip.Choice"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Fast food"
+                                    android:text="Fatigue"
                                     android:textColor="@color/md_black_1000" />
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chip5"
-                                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Diet"
-                                    android:textColor="@color/md_black_1000" />
-
 
                             </com.google.android.material.chip.ChipGroup>
 
@@ -193,7 +185,9 @@
                                 android:id="@+id/imgMore"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_more">
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:src="@drawable/ic_add">
                             </ImageView>
 
                         </LinearLayout>
@@ -225,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="SAVE"
-                        android:textColor="@color/md_blue_700"
+                        android:textColor="@color/md_light_blue_700"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.501"
