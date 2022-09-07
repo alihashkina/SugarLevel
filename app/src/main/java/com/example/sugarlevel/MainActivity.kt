@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import com.example.sugarlevel.fragment.GeneralPage
+import com.example.sugarlevel.fragment.TabFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.containerView, GeneralPage.newInstance())
+                .add(R.id.containerView, TabFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
         }

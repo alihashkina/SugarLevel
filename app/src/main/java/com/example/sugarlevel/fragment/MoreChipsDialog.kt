@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.sugarlevel.R
 import com.example.sugarlevel.databinding.MoreChipsDialogFragmentBinding
-import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
 import com.example.sugarlevel.viewModel.MoreChipsDialogViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

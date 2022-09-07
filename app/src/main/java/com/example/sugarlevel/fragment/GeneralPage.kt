@@ -20,9 +20,12 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.sugarlevel.R
+import com.example.sugarlevel.adapters.CardsAdapter
 import com.example.sugarlevel.databinding.GeneralPageFragmentBinding
 import com.example.sugarlevel.db.MyDBHelper
+import com.example.sugarlevel.fragment.Statistics.Companion.bindingStatistics
 import com.example.sugarlevel.viewModel.GeneralPageViewModel
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.day
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.hour
@@ -37,11 +40,12 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     companion object {
         fun newInstance() = GeneralPage()
         var editSugar = ""
-        var chipsCheckTxt: MutableList<String> = mutableListOf()
+        var chipsSymptomsCheckTxt: MutableList<String> = mutableListOf()
         var dateDB = ""
         var arrayDateGraph : MutableList<String> = mutableListOf()
         var arraySugarGraph : MutableList<Float> = mutableListOf()
         lateinit var bindingGeneralPage: GeneralPageFragmentBinding
+        var chipsSymptomsCheckTxtDistinct = listOf<String>()
     }
 
     var saveyear = 0
@@ -86,7 +90,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                 bindingGeneralPage.txtSugar.setText("0.0")
                 bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
             }
-            if(bindingGeneralPage.txtSugar.text.toString().toDouble() < 30.0) {
+            if(bindingGeneralPage.txtSugar.text.toString().toDouble() < 700.0) {
                 bindingGeneralPage.txtSugar.setText(
                     "${((bindingGeneralPage.txtSugar.text.toString().toDouble() * 10) + 1)/10}"
                 )
@@ -94,11 +98,11 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             }
             else{
                 bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
-                bindingGeneralPage.txtSugar.setText("30.0")
+                bindingGeneralPage.txtSugar.setText("700.0")
                 bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
             }
         }
-        Log.i("CHIPS", "$chipsCheckTxt")
+        Log.i("CHIPS", "$chipsSymptomsCheckTxt")
         bindingGeneralPage.btnMinus.setOnClickListener {
             if(bindingGeneralPage.txtSugar.text.toString() == ""){
                 bindingGeneralPage.txtSugar.setText("0.0")
@@ -123,19 +127,23 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             if(bindingGeneralPage.txtSugar.text.toString() != ""){
                 viewModel.chipsCheck(bindingGeneralPage.chipsGeneral, view!!)
                 var cv = ContentValues()
-                var chipsCheckTxtDistinct = chipsCheckTxt.distinct()
+                chipsSymptomsCheckTxtDistinct = chipsSymptomsCheckTxt.distinct()
                 cv.put("DATE", "${bindingGeneralPage.txtRecord.text.drop(7)}")
                 cv.put("SUGAR", bindingGeneralPage.txtSugar.text.toString())
-                cv.put("CHIPS", "${chipsCheckTxtDistinct}")
+                cv.put("CHIPSHEALTHY", "")
+                cv.put("CHIPSUNHEALTHY", "")
+                cv.put("CHIPSSYMPTOMS", "${chipsSymptomsCheckTxtDistinct}")
+                cv.put("CHIPSCARE", "")
                 cv.put("DAYS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(0).toInt())
                 cv.put("MONTH", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(1).toInt())
                 cv.put("YEARS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(2).dropLast(5).replace(" ", "").toInt())
                 cv.put("HOURS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(" ")?.get(1).dropLast(2).replace(":", "").toInt())
                 cv.put("MINUTE", bindingGeneralPage.txtRecord.text.toString().drop(7).split(":")?.get(1).toInt())
                 MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
-               Log.i("LOG", "$chipsCheckTxtDistinct")
-                chipsCheckTxtDistinct = arrayListOf()
-                chipsCheckTxt = arrayListOf()
+               Log.i("LOG", "$chipsSymptomsCheckTxtDistinct")
+                bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateGraph, arrayDateGraph, arrayDateGraph, arrayDateGraph, arrayDateGraph, arrayDateGraph)
+                chipsSymptomsCheckTxtDistinct = arrayListOf()
+                chipsSymptomsCheckTxt = arrayListOf()
                 viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord)
                 bindingGeneralPage.scrollGraph.post {
                     bindingGeneralPage.scrollGraph.fullScroll(View.FOCUS_RIGHT)

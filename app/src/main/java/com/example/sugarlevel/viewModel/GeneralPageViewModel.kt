@@ -8,17 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.children
 import androidx.core.view.marginBottom
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.sugarlevel.R
+import com.example.sugarlevel.adapters.CardsAdapter
 import com.example.sugarlevel.db.MyDBHelper
 import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayDateGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySugarGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.bindingGeneralPage
-import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
+import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsSymptomsCheckTxt
 import com.example.sugarlevel.fragment.GeneralPage.Companion.dateDB
+import com.example.sugarlevel.fragment.Statistics
+import com.example.sugarlevel.fragment.Statistics.Companion.arrayDateStaistics
+import com.example.sugarlevel.fragment.Statistics.Companion.arrayHealthyStaistics
+import com.example.sugarlevel.fragment.Statistics.Companion.arrayTimeStaistics
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.slider.LabelFormatter
@@ -53,7 +60,7 @@ class GeneralPageViewModel : ViewModel() {
      private fun handleSelection(view: View) {
          bindingGeneralPage.chipsGeneral.checkedChipIds.forEach {
              val chip = view?.findViewById<Chip>(it)
-             chipsCheckTxt.add("${chip?.text}")
+             chipsSymptomsCheckTxt.add("${chip?.text}")
          }
      }
 
@@ -70,9 +77,10 @@ class GeneralPageViewModel : ViewModel() {
     fun graph(graph: LineView, context: Context, scrollGraph: HorizontalScrollView, txtOnbord: LinearLayout){
         var helper = MyDBHelper(context!!)
         var db = helper.readableDatabase
-        var rs = db.rawQuery("SELECT DATE, SUGAR, CHIPS, DAYS, MONTH, YEARS, HOURS, MINUTE FROM USERS ORDER BY YEARS, MONTH, DAYS, HOURS, MINUTE ASC", null)
+        var rs = db.rawQuery("SELECT DATE, SUGAR, CHIPSHEALTHY, CHIPSUNHEALTHY, CHIPSSYMPTOMS, CHIPSCARE, DAYS, MONTH, YEARS, HOURS, MINUTE FROM USERS ORDER BY YEARS, MONTH, DAYS, HOURS, MINUTE ASC", null)
         arrayDateGraph = arrayListOf()
         arraySugarGraph = arrayListOf()
+
 
         while (rs.moveToNext()) {
             dateDB = rs.getString(0)
@@ -80,9 +88,13 @@ class GeneralPageViewModel : ViewModel() {
             rs.getString(2)
             arrayDateGraph.add(dateDB)
             arraySugarGraph.add(sugarDB)
+            arrayDateStaistics.add(dateDB.split(" ")?.get(0))
+            arrayTimeStaistics.add(dateDB.split(" ")?.get(1))
+            arrayHealthyStaistics.add(rs.getString(5).replace("[", "").replace("]", "").replace(",", " | "))
         }
 
         if(dateDB != "") {
+           //Statistics.arrayHealthyStaistics.add(GeneralPage.chipsCheckTxtDistinct.joinToString())
             scrollGraph.visibility = View.VISIBLE
             txtOnbord.visibility = View.GONE
             var sugarLists = ArrayList<ArrayList<Float>>()

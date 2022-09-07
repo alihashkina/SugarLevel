@@ -6,8 +6,8 @@ import android.view.View
 import androidx.core.view.children
 import androidx.lifecycle.ViewModel
 import com.example.sugarlevel.fragment.GeneralPage
-import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCheckTxt
 import com.example.sugarlevel.fragment.MoreChipsDialog
+import com.example.sugarlevel.fragment.Statistics.Companion.arrayHealthyStaistics
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -81,19 +81,19 @@ class MoreChipsDialogViewModel : ViewModel() {
     private fun handleSelection(view: View){
         MoreChipsDialog.bindingMoreChipsDialog.chipGroupHealthy.checkedChipIds.forEach{
             val chip = view?.findViewById<Chip>(it)
-            chipsCheckTxt.add("${chip?.text}")
+           // GeneralPage.chipsSymptomsCheckTxt.add("${chip?.text}")
         }
         MoreChipsDialog.bindingMoreChipsDialog.chipGroupUnhealthy.checkedChipIds.forEach{
             val chip = view?.findViewById<Chip>(it)
-            chipsCheckTxt.add("${chip?.text}")
+            //chipsCheckTxt.add("${chip?.text}")
         }
         MoreChipsDialog.bindingMoreChipsDialog.chipGroupSymptoms.checkedChipIds.forEach{
             val chip = view?.findViewById<Chip>(it)
-            chipsCheckTxt.add("${chip?.text}")
+           GeneralPage.chipsSymptomsCheckTxt.add("${chip?.text}")
         }
         MoreChipsDialog.bindingMoreChipsDialog.chipGroupCare.checkedChipIds.forEach{
             val chip = view?.findViewById<Chip>(it)
-            chipsCheckTxt.add("${chip?.text}")
+            //GeneralPage.chipsSymptomsCheckTxt.add("${chip?.text}")
         }
     }
 }
