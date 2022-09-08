@@ -3,6 +3,8 @@ package com.example.sugarlevel.viewModel
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +22,18 @@ import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayDateGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySugarGraph
 import com.example.sugarlevel.fragment.GeneralPage.Companion.bindingGeneralPage
-import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsSymptomsCheckTxt
+import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsSymptomsCheck
+import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsSymptomsCheckDistinct
 import com.example.sugarlevel.fragment.GeneralPage.Companion.dateDB
+import com.example.sugarlevel.fragment.GeneralPage.Companion.sugarDB
 import com.example.sugarlevel.fragment.Statistics
+import com.example.sugarlevel.fragment.Statistics.Companion.arrayCareS
 import com.example.sugarlevel.fragment.Statistics.Companion.arrayDateStaistics
-import com.example.sugarlevel.fragment.Statistics.Companion.arrayHealthyStaistics
+import com.example.sugarlevel.fragment.Statistics.Companion.arrayHealthyS
+import com.example.sugarlevel.fragment.Statistics.Companion.arraySugarS
+import com.example.sugarlevel.fragment.Statistics.Companion.arraySymptomsS
 import com.example.sugarlevel.fragment.Statistics.Companion.arrayTimeStaistics
+import com.example.sugarlevel.fragment.Statistics.Companion.arrayUnHealthyS
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.slider.LabelFormatter
@@ -35,6 +43,7 @@ import java.math.RoundingMode
 import java.security.AccessController.getContext
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 class GeneralPageViewModel : ViewModel() {
 
@@ -60,7 +69,7 @@ class GeneralPageViewModel : ViewModel() {
      private fun handleSelection(view: View) {
          bindingGeneralPage.chipsGeneral.checkedChipIds.forEach {
              val chip = view?.findViewById<Chip>(it)
-             chipsSymptomsCheckTxt.add("${chip?.text}")
+            chipsSymptomsCheck.add("${chip?.text}")
          }
      }
 
@@ -84,17 +93,21 @@ class GeneralPageViewModel : ViewModel() {
 
         while (rs.moveToNext()) {
             dateDB = rs.getString(0)
-            var sugarDB = rs.getString(1).toFloat()
-            rs.getString(2)
+            sugarDB = rs.getString(1).toFloat()
             arrayDateGraph.add(dateDB)
             arraySugarGraph.add(sugarDB)
             arrayDateStaistics.add(dateDB.split(" ")?.get(0))
             arrayTimeStaistics.add(dateDB.split(" ")?.get(1))
-            arrayHealthyStaistics.add(rs.getString(5).replace("[", "").replace("]", "").replace(",", " | "))
+            arrayHealthyS.add(rs.getString(2).replace("[", "").replace("]", "").replace(",", " | "))
+            arrayUnHealthyS.add(rs.getString(3).replace("[", "").replace("]", "").replace(",", " | "))
+            arraySymptomsS.add(rs.getString(4).replace("[", "").replace("]", "").replace(",", " | "))
+            arrayCareS.add(rs.getString(5).replace("[", "").replace("]", "").replace(",", " | "))
+            arraySugarS.add(rs.getString(1))
         }
 
         if(dateDB != "") {
-           //Statistics.arrayHealthyStaistics.add(GeneralPage.chipsCheckTxtDistinct.joinToString())
+            Statistics.bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateStaistics, arrayTimeStaistics, arrayHealthyS, arrayUnHealthyS, arraySymptomsS, arrayCareS, arraySugarS)
+
             scrollGraph.visibility = View.VISIBLE
             txtOnbord.visibility = View.GONE
             var sugarLists = ArrayList<ArrayList<Float>>()

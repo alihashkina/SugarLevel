@@ -2,6 +2,7 @@ package com.example.sugarlevel.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,11 @@ class Statistics : Fragment() {
         lateinit var bindingStatistics: StatisticsFragmentBinding
         var arrayDateStaistics = mutableListOf<String>()
         var arrayTimeStaistics = mutableListOf<String>()
-        var arrayHealthyStaistics = mutableListOf<String>()
+        var arrayHealthyS = mutableListOf<String>()
+        var arrayUnHealthyS = mutableListOf<String>()
+        var arraySymptomsS = mutableListOf<String>()
+        var arrayCareS = mutableListOf<String>()
+        var arraySugarS = mutableListOf<String>()
     }
 
     private lateinit var viewModel: StatisticsViewModel
@@ -40,7 +45,7 @@ class Statistics : Fragment() {
         viewModel = ViewModelProvider(this).get(StatisticsViewModel::class.java)
 
         bindingStatistics.recyclerStatistics.layoutManager = GridLayoutManager(requireContext(),1)
-        bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateStaistics, arrayTimeStaistics, arrayHealthyStaistics, arrayDateGraph, arrayDateGraph, arrayDateGraph)
+   //     bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateStaistics, arrayTimeStaistics, arrayHealthyS, arrayUnHealthyS, arraySymptomsS, arrayCareS, arraySugarS)
     }
 
 }

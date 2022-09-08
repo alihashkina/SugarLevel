@@ -2,12 +2,16 @@ package com.example.sugarlevel.viewModel
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import androidx.core.view.children
 import androidx.lifecycle.ViewModel
 import com.example.sugarlevel.fragment.GeneralPage
+import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsCareCheck
+import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsHealthyCheck
+import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsSymptomsCheck
+import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsUnHealthyCheck
 import com.example.sugarlevel.fragment.MoreChipsDialog
-import com.example.sugarlevel.fragment.Statistics.Companion.arrayHealthyStaistics
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -81,19 +85,19 @@ class MoreChipsDialogViewModel : ViewModel() {
     private fun handleSelection(view: View){
         MoreChipsDialog.bindingMoreChipsDialog.chipGroupHealthy.checkedChipIds.forEach{
             val chip = view?.findViewById<Chip>(it)
-           // GeneralPage.chipsSymptomsCheckTxt.add("${chip?.text}")
+            chipsHealthyCheck.add("${chip?.text}")
         }
         MoreChipsDialog.bindingMoreChipsDialog.chipGroupUnhealthy.checkedChipIds.forEach{
             val chip = view?.findViewById<Chip>(it)
-            //chipsCheckTxt.add("${chip?.text}")
+            chipsUnHealthyCheck.add("${chip?.text}")
         }
         MoreChipsDialog.bindingMoreChipsDialog.chipGroupSymptoms.checkedChipIds.forEach{
             val chip = view?.findViewById<Chip>(it)
-           GeneralPage.chipsSymptomsCheckTxt.add("${chip?.text}")
+            chipsSymptomsCheck.add("${chip?.text}")
         }
         MoreChipsDialog.bindingMoreChipsDialog.chipGroupCare.checkedChipIds.forEach{
             val chip = view?.findViewById<Chip>(it)
-            //GeneralPage.chipsSymptomsCheckTxt.add("${chip?.text}")
+            chipsCareCheck.add("${chip?.text}")
         }
     }
 }

@@ -40,12 +40,19 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     companion object {
         fun newInstance() = GeneralPage()
         var editSugar = ""
-        var chipsSymptomsCheckTxt: MutableList<String> = mutableListOf()
         var dateDB = ""
+        var sugarDB: Float = 0.0F
         var arrayDateGraph : MutableList<String> = mutableListOf()
         var arraySugarGraph : MutableList<Float> = mutableListOf()
+        var chipsHealthyCheck = mutableListOf<String>()
+        var chipsUnHealthyCheck = mutableListOf<String>()
+        var chipsSymptomsCheck = mutableListOf<String>()
+        var chipsCareCheck = mutableListOf<String>()
         lateinit var bindingGeneralPage: GeneralPageFragmentBinding
-        var chipsSymptomsCheckTxtDistinct = listOf<String>()
+        var chipsHealthyCheckDistinct = listOf<String>()
+        var chipsUnHealthyCheckDistinct = listOf<String>()
+        var chipsSymptomsCheckDistinct = listOf<String>()
+        var chipsCareCheckDistinct = listOf<String>()
     }
 
     var saveyear = 0
@@ -102,7 +109,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                 bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
             }
         }
-        Log.i("CHIPS", "$chipsSymptomsCheckTxt")
+
         bindingGeneralPage.btnMinus.setOnClickListener {
             if(bindingGeneralPage.txtSugar.text.toString() == ""){
                 bindingGeneralPage.txtSugar.setText("0.0")
@@ -127,23 +134,30 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             if(bindingGeneralPage.txtSugar.text.toString() != ""){
                 viewModel.chipsCheck(bindingGeneralPage.chipsGeneral, view!!)
                 var cv = ContentValues()
-                chipsSymptomsCheckTxtDistinct = chipsSymptomsCheckTxt.distinct()
+                chipsHealthyCheckDistinct = chipsHealthyCheck.distinct()
+                chipsUnHealthyCheckDistinct = chipsUnHealthyCheck.distinct()
+                chipsSymptomsCheckDistinct = chipsSymptomsCheck.distinct()
+                chipsCareCheckDistinct = chipsCareCheck.distinct()
                 cv.put("DATE", "${bindingGeneralPage.txtRecord.text.drop(7)}")
                 cv.put("SUGAR", bindingGeneralPage.txtSugar.text.toString())
-                cv.put("CHIPSHEALTHY", "")
-                cv.put("CHIPSUNHEALTHY", "")
-                cv.put("CHIPSSYMPTOMS", "${chipsSymptomsCheckTxtDistinct}")
-                cv.put("CHIPSCARE", "")
+                cv.put("CHIPSHEALTHY", "${chipsHealthyCheckDistinct.joinToString()}")
+                cv.put("CHIPSUNHEALTHY", "${chipsUnHealthyCheckDistinct.joinToString()}")
+                cv.put("CHIPSSYMPTOMS", "${chipsSymptomsCheckDistinct.joinToString()}")
+                cv.put("CHIPSCARE", "${chipsCareCheckDistinct.joinToString()}")
                 cv.put("DAYS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(0).toInt())
                 cv.put("MONTH", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(1).toInt())
                 cv.put("YEARS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(2).dropLast(5).replace(" ", "").toInt())
                 cv.put("HOURS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(" ")?.get(1).dropLast(2).replace(":", "").toInt())
                 cv.put("MINUTE", bindingGeneralPage.txtRecord.text.toString().drop(7).split(":")?.get(1).toInt())
                 MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
-               Log.i("LOG", "$chipsSymptomsCheckTxtDistinct")
-                bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateGraph, arrayDateGraph, arrayDateGraph, arrayDateGraph, arrayDateGraph, arrayDateGraph)
-                chipsSymptomsCheckTxtDistinct = arrayListOf()
-                chipsSymptomsCheckTxt = arrayListOf()
+                chipsHealthyCheckDistinct = arrayListOf()
+                chipsHealthyCheck = arrayListOf()
+                chipsUnHealthyCheckDistinct = arrayListOf()
+                chipsUnHealthyCheck = arrayListOf()
+                chipsSymptomsCheckDistinct = arrayListOf()
+                chipsSymptomsCheck = arrayListOf()
+                chipsSymptomsCheckDistinct = arrayListOf()
+                chipsSymptomsCheck = arrayListOf()
                 viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord)
                 bindingGeneralPage.scrollGraph.post {
                     bindingGeneralPage.scrollGraph.fullScroll(View.FOCUS_RIGHT)
