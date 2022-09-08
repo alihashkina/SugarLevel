@@ -106,7 +106,7 @@ class GeneralPageViewModel : ViewModel() {
         }
 
         if(dateDB != "") {
-            Statistics.bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateStaistics, arrayTimeStaistics, arrayHealthyS, arrayUnHealthyS, arraySymptomsS, arrayCareS, arraySugarS)
+          //  Statistics.bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateStaistics, arrayTimeStaistics, arrayHealthyS, arrayUnHealthyS, arraySymptomsS, arrayCareS, arraySugarS)
 
             scrollGraph.visibility = View.VISIBLE
             txtOnbord.visibility = View.GONE

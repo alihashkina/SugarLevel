@@ -45,7 +45,7 @@ class Statistics : Fragment() {
         viewModel = ViewModelProvider(this).get(StatisticsViewModel::class.java)
 
         bindingStatistics.recyclerStatistics.layoutManager = GridLayoutManager(requireContext(),1)
-   //     bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateStaistics, arrayTimeStaistics, arrayHealthyS, arrayUnHealthyS, arraySymptomsS, arrayCareS, arraySugarS)
+        bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateStaistics, arrayTimeStaistics, arrayHealthyS, arrayUnHealthyS, arraySymptomsS, arrayCareS, arraySugarS)
     }
 
 }
