@@ -16,24 +16,22 @@ import androidx.core.view.marginBottom
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.sugarlevel.R
-import com.example.sugarlevel.adapters.CardsAdapter
 import com.example.sugarlevel.db.MyDBHelper
 import com.example.sugarlevel.fragment.GeneralPage
+import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayCareS
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayDateGraph
+import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayDateStaistics
+import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayHealthyS
 import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySugarGraph
+import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySugarS
+import com.example.sugarlevel.fragment.GeneralPage.Companion.arraySymptomsS
+import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayTimeStaistics
+import com.example.sugarlevel.fragment.GeneralPage.Companion.arrayUnHealthyS
 import com.example.sugarlevel.fragment.GeneralPage.Companion.bindingGeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsSymptomsCheck
 import com.example.sugarlevel.fragment.GeneralPage.Companion.chipsSymptomsCheckDistinct
 import com.example.sugarlevel.fragment.GeneralPage.Companion.dateDB
 import com.example.sugarlevel.fragment.GeneralPage.Companion.sugarDB
-import com.example.sugarlevel.fragment.Statistics
-import com.example.sugarlevel.fragment.Statistics.Companion.arrayCareS
-import com.example.sugarlevel.fragment.Statistics.Companion.arrayDateStaistics
-import com.example.sugarlevel.fragment.Statistics.Companion.arrayHealthyS
-import com.example.sugarlevel.fragment.Statistics.Companion.arraySugarS
-import com.example.sugarlevel.fragment.Statistics.Companion.arraySymptomsS
-import com.example.sugarlevel.fragment.Statistics.Companion.arrayTimeStaistics
-import com.example.sugarlevel.fragment.Statistics.Companion.arrayUnHealthyS
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.slider.LabelFormatter
@@ -106,8 +104,6 @@ class GeneralPageViewModel : ViewModel() {
         }
 
         if(dateDB != "") {
-          //  Statistics.bindingStatistics.recyclerStatistics.adapter = CardsAdapter(arrayDateStaistics, arrayTimeStaistics, arrayHealthyS, arrayUnHealthyS, arraySymptomsS, arrayCareS, arraySugarS)
-
             scrollGraph.visibility = View.VISIBLE
             txtOnbord.visibility = View.GONE
             var sugarLists = ArrayList<ArrayList<Float>>()

@@ -70,4 +70,6 @@ dependencies {
     //Dialog
     implementation 'com.google.android.material:material:1.2.0'
 
+    implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
+
 }

@@ -22,9 +22,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.sugarlevel.R
-import com.example.sugarlevel.adapters.CardsAdapter
+import com.example.sugarlevel.adapters.Card
 import com.example.sugarlevel.databinding.GeneralPageFragmentBinding
 import com.example.sugarlevel.db.MyDBHelper
+import com.example.sugarlevel.fragment.Statistics.Companion.adapter
 import com.example.sugarlevel.fragment.Statistics.Companion.bindingStatistics
 import com.example.sugarlevel.viewModel.GeneralPageViewModel
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.day
@@ -53,6 +54,13 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         var chipsUnHealthyCheckDistinct = listOf<String>()
         var chipsSymptomsCheckDistinct = listOf<String>()
         var chipsCareCheckDistinct = listOf<String>()
+        var arrayDateStaistics = mutableListOf<String>()
+        var arrayTimeStaistics = mutableListOf<String>()
+        var arrayHealthyS = mutableListOf<String>()
+        var arrayUnHealthyS = mutableListOf<String>()
+        var arraySymptomsS = mutableListOf<String>()
+        var arrayCareS = mutableListOf<String>()
+        var arraySugarS = mutableListOf<String>()
     }
 
     var saveyear = 0
@@ -60,6 +68,7 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     var saveday = 0
     var savehour = 0
     var saveminute = 0
+    var index = 0
 
     private lateinit var viewModel: GeneralPageViewModel
 
@@ -150,6 +159,9 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                 cv.put("HOURS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(" ")?.get(1).dropLast(2).replace(":", "").toInt())
                 cv.put("MINUTE", bindingGeneralPage.txtRecord.text.toString().drop(7).split(":")?.get(1).toInt())
                 MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
+                var cards = Card(arrayDateStaistics[index], arrayTimeStaistics[index], arrayHealthyS[index], arrayUnHealthyS[index], arraySymptomsS[index], arrayCareS[index], arraySugarS[index])
+                adapter.addCard(cards)
+                index++
                 chipsHealthyCheckDistinct = arrayListOf()
                 chipsHealthyCheck = arrayListOf()
                 chipsUnHealthyCheckDistinct = arrayListOf()

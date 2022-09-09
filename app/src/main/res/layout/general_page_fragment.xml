@@ -173,7 +173,7 @@
                         android:gravity="center"
                         android:fontFamily="@font/roboto"
                         android:inputType="numberDecimal"
-                        android:maxLength="4"
+                        android:maxLength="5"
                         android:text="7.1"
                         android:textColor="@color/md_black_1000"
                         android:textSize="60sp"

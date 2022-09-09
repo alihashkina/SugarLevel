@@ -25,22 +25,39 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="start">
 
-                    <com.neo.arcchartview.ArcChartView
-                        android:id="@+id/arcChartView"
+                    <com.h6ah4i.android.materialshadowninepatch.MaterialShadowContainerView
+                        android:id="@+id/shadow_item_container"
+                        style="@style/ms9_CompositeShadowStyleZ6CompatOnly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:acv_allow_setting_value_by_touch="false"
-                        app:acv_icon_size="0dp"
-                        app:acv_lines_count="10"
-                        app:acv_lines_space="4dp"
-                        app:acv_lines_width="1dp"
-                        app:acv_mid_start_extra_offset="60dp"
-                        app:acv_sections_count="4"
-                        app:acv_sections_space="2dp"
+                        app:ms9_useAmbientShadow="true"
+                        app:ms9_useSpotShadow="true"
+                        app:ms9_forceUseCompatShadow="true"
+                        app:ms9_affectsDisplayedPosition="true"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.555" />
+                        app:ms9_shadowElevation="2dp"
+                        app:ms9_shadowTranslationZ="4dp">
+
+                        <com.neo.arcchartview.ArcChartView
+                            android:id="@+id/arcChartView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:acv_allow_setting_value_by_touch="false"
+                            app:acv_icon_size="0dp"
+                            app:acv_lines_count="10"
+                            app:acv_lines_space="4dp"
+                            app:acv_lines_width="1dp"
+                            app:acv_mid_start_extra_offset="60dp"
+                            app:acv_sections_count="4"
+                            app:acv_sections_space="2dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.555" />
+
+                    </com.h6ah4i.android.materialshadowninepatch.MaterialShadowContainerView>
 
                     <ImageView
                         android:id="@+id/imageView2"
@@ -49,7 +66,7 @@
                         android:layout_marginTop="5dp"
                         android:src="@drawable/ic_unhealthy"
                         app:layout_constraintBottom_toTopOf="@+id/imageView3"
-                        app:layout_constraintStart_toEndOf="@+id/arcChartView"
+                        app:layout_constraintStart_toEndOf="@+id/shadow_item_container"
                         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                     <ImageView
@@ -59,7 +76,7 @@
                         android:layout_marginTop="5dp"
                         android:src="@drawable/ic_care"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/arcChartView"
+                        app:layout_constraintStart_toEndOf="@+id/shadow_item_container"
                         app:layout_constraintTop_toBottomOf="@+id/imageView3"
                         app:layout_constraintVertical_bias="0.516" />
 
@@ -70,7 +87,7 @@
                         android:layout_marginTop="5dp"
                         android:src="@drawable/ic_symptoms"
                         app:layout_constraintBottom_toTopOf="@+id/imageView4"
-                        app:layout_constraintStart_toEndOf="@+id/arcChartView"
+                        app:layout_constraintStart_toEndOf="@+id/shadow_item_container"
                         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
                     <ImageView
@@ -80,7 +97,7 @@
                         android:layout_marginTop="5dp"
                         android:src="@drawable/ic_healthy"
                         app:layout_constraintBottom_toTopOf="@+id/imageView2"
-                        app:layout_constraintStart_toEndOf="@+id/arcChartView"
+                        app:layout_constraintStart_toEndOf="@+id/shadow_item_container"
                         app:layout_constraintTop_toBottomOf="@+id/cardTime" />
 
                     <TextView
@@ -90,10 +107,10 @@
                         android:layout_height="wrap_content"
                         android:text="10.0"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/arcChartView"
-                        app:layout_constraintEnd_toEndOf="@+id/arcChartView"
-                        app:layout_constraintStart_toStartOf="@+id/arcChartView"
-                        app:layout_constraintTop_toTopOf="@+id/arcChartView" />
+                        app:layout_constraintBottom_toBottomOf="@+id/shadow_item_container"
+                        app:layout_constraintEnd_toEndOf="@+id/shadow_item_container"
+                        app:layout_constraintStart_toStartOf="@+id/shadow_item_container"
+                        app:layout_constraintTop_toTopOf="@+id/shadow_item_container" />
 
                     <TextView
                         android:id="@+id/cardDate"
@@ -106,7 +123,7 @@
                         app:layout_constraintBottom_toTopOf="@+id/cardTime"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/arcChartView"
+                        app:layout_constraintStart_toEndOf="@+id/shadow_item_container"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -119,7 +136,7 @@
                         app:layout_constraintBottom_toTopOf="@+id/cardHealthy"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/arcChartView"
+                        app:layout_constraintStart_toEndOf="@+id/shadow_item_container"
                         app:layout_constraintTop_toBottomOf="@+id/cardDate" />
 
                     <TextView
