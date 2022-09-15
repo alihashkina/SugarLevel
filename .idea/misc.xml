@@ -3,19 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_add.xml" value="0.2890625" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_calendar.xml" value="0.2890625" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_care.xml" value="0.2890625" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_healthy.xml" value="0.2890625" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_minus.xml" value="0.2890625" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_oval_sugar.xml" value="0.2890625" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_product_sugar.xml" value="0.15885416666666666" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_symptoms.xml" value="0.2890625" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_unhealthy.xml" value="0.2890625" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/general_page_fragment.xml" value="0.27291666666666664" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/drawable/ic_add.xml" value="0.3828125" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/drawable/ic_care.xml" value="0.3828125" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/drawable/ic_healthy.xml" value="0.3828125" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/drawable/ic_shadow_back.xml" value="0.3828125" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/drawable/ic_symptoms.xml" value="0.3828125" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/drawable/ic_unhealthy.xml" value="0.3828125" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/layout/card_statistics.xml" value="0.5" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/layout/general_page_fragment.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/Marina/SugarLevel/app/src/main/res/layout/tab_fragment.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/card_statistics.xml" value="0.25" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/general_page_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/more_chips_dialog_fragment.xml" value="0.2975582055650199" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/statistics_fragment.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>

@@ -23,7 +23,7 @@ class PagerAdapter (fm: FragmentManager): FragmentPagerAdapter(fm) {
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position){
-            0 -> "Diary"
+            0 -> "Record"
             else ->{
                 return "Statistics"
             }

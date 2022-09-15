@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.SugarLevel" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/md_light_blue_700</item>
+        <item name="colorPrimary">@color/md_light_blue_600</item>
         <item name="colorPrimaryVariant">@color/md_light_blue_400</item>
         <item name="colorOnPrimary">@color/md_white_1000</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/md_light_blue_700</item>
+        <item name="colorSecondary">@color/md_light_blue_600</item>
         <item name="colorSecondaryVariant">@color/md_light_blue_400</item>
         <item name="colorOnSecondary">@color/md_black_1000</item>
         <!-- Status bar color. -->

@@ -2,12 +2,14 @@ package com.example.sugarlevel
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.TabFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
         }
+
         verifyStoragePermissions(this)
     }
 
@@ -39,11 +43,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun verifyStoragePermissions(activity: Activity?) {
-        // Check if we have write permission
         val permission =
             ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
                 activity,
                 PERMISSIONS_STORAGE,
@@ -51,5 +53,4 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
-
 }

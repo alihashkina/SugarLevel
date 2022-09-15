@@ -16,12 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/md_white_1000"
-        android:gravity="fill"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerStatistics"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="visible" />
     </LinearLayout>
 </layout>

@@ -21,7 +21,6 @@ class TabFragment : Fragment() {
         lateinit var bindingTab: TabFragmentBinding
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

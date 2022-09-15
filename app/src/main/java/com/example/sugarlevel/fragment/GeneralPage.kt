@@ -3,10 +3,11 @@ package com.example.sugarlevel.fragment
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,26 +16,26 @@ import android.view.inputmethod.EditorInfo
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.TimePicker
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.sugarlevel.R
-import com.example.sugarlevel.adapters.Card
+import com.example.sugarlevel.adapters.CardAdapter.Companion.cardList
 import com.example.sugarlevel.databinding.GeneralPageFragmentBinding
 import com.example.sugarlevel.db.MyDBHelper
-import com.example.sugarlevel.fragment.Statistics.Companion.adapter
-import com.example.sugarlevel.fragment.Statistics.Companion.bindingStatistics
 import com.example.sugarlevel.viewModel.GeneralPageViewModel
+import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.chipsSP
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.day
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.hour
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.minute
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.month
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.year
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
+import java.lang.reflect.Type
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -42,6 +43,10 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         fun newInstance() = GeneralPage()
         var editSugar = ""
         var dateDB = ""
+        var chipsHDB = ""
+        var chipsUhDB = ""
+        var chipsSDB = ""
+        var chipsCDB = ""
         var sugarDB: Float = 0.0F
         var arrayDateGraph : MutableList<String> = mutableListOf()
         var arraySugarGraph : MutableList<Float> = mutableListOf()
@@ -54,13 +59,6 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         var chipsUnHealthyCheckDistinct = listOf<String>()
         var chipsSymptomsCheckDistinct = listOf<String>()
         var chipsCareCheckDistinct = listOf<String>()
-        var arrayDateStaistics = mutableListOf<String>()
-        var arrayTimeStaistics = mutableListOf<String>()
-        var arrayHealthyS = mutableListOf<String>()
-        var arrayUnHealthyS = mutableListOf<String>()
-        var arraySymptomsS = mutableListOf<String>()
-        var arrayCareS = mutableListOf<String>()
-        var arraySugarS = mutableListOf<String>()
     }
 
     var saveyear = 0
@@ -68,7 +66,6 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
     var saveday = 0
     var savehour = 0
     var saveminute = 0
-    var index = 0
 
     private lateinit var viewModel: GeneralPageViewModel
 
@@ -80,11 +77,18 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         return bindingGeneralPage.root
     }
 
+
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(GeneralPageViewModel::class.java)
+
+        viewModel.chipsColorHealthy(bindingGeneralPage.chipGroupHealthy, requireView())
+        viewModel.chipsColorUnhealthy(bindingGeneralPage.chipGroupUnhealthy, requireView())
+        viewModel.chipsColorSymptoms(bindingGeneralPage.chipGroupSymptoms, requireView())
+        viewModel.chipsColorCare(bindingGeneralPage.chipGroupCare, requireView())
+
         bindingGeneralPage.txtSugar.setSelection(bindingGeneralPage.txtSugar.length())
         editSugar = bindingGeneralPage.txtSugar.text.toString()
 
@@ -137,16 +141,22 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             }
         }
 
-        viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord)
+        viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord, requireView())
 
         bindingGeneralPage.btnSave.setOnClickListener {
             if(bindingGeneralPage.txtSugar.text.toString() != ""){
-                viewModel.chipsCheck(bindingGeneralPage.chipsGeneral, view!!)
-                var cv = ContentValues()
+
+                viewModel.chipsColorHealthy(bindingGeneralPage.chipGroupHealthy, requireView())
+                viewModel.chipsColorUnhealthy(bindingGeneralPage.chipGroupUnhealthy, requireView())
+                viewModel.chipsColorSymptoms(bindingGeneralPage.chipGroupSymptoms, requireView())
+                viewModel.chipsColorCare(bindingGeneralPage.chipGroupCare, requireView())
+
                 chipsHealthyCheckDistinct = chipsHealthyCheck.distinct()
                 chipsUnHealthyCheckDistinct = chipsUnHealthyCheck.distinct()
                 chipsSymptomsCheckDistinct = chipsSymptomsCheck.distinct()
                 chipsCareCheckDistinct = chipsCareCheck.distinct()
+
+                var cv = ContentValues()
                 cv.put("DATE", "${bindingGeneralPage.txtRecord.text.drop(7)}")
                 cv.put("SUGAR", bindingGeneralPage.txtSugar.text.toString())
                 cv.put("CHIPSHEALTHY", "${chipsHealthyCheckDistinct.joinToString()}")
@@ -158,10 +168,18 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                 cv.put("YEARS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(".")?.get(2).dropLast(5).replace(" ", "").toInt())
                 cv.put("HOURS", bindingGeneralPage.txtRecord.text.toString().drop(7).split(" ")?.get(1).dropLast(2).replace(":", "").toInt())
                 cv.put("MINUTE", bindingGeneralPage.txtRecord.text.toString().drop(7).split(":")?.get(1).toInt())
+
                 MyDBHelper(requireContext()).readableDatabase.insert("USERS", null, cv)
-                var cards = Card(arrayDateStaistics[index], arrayTimeStaistics[index], arrayHealthyS[index], arrayUnHealthyS[index], arraySymptomsS[index], arrayCareS[index], arraySugarS[index])
-                adapter.addCard(cards)
-                index++
+
+                cardList.clear()
+                Statistics.bindingStatistics.recyclerStatistics.adapter!!.notifyDataSetChanged()
+
+                viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord, requireView())
+
+                bindingGeneralPage.scrollGraph.post {
+                    bindingGeneralPage.scrollGraph.fullScroll(View.FOCUS_RIGHT)
+                }
+
                 chipsHealthyCheckDistinct = arrayListOf()
                 chipsHealthyCheck = arrayListOf()
                 chipsUnHealthyCheckDistinct = arrayListOf()
@@ -170,10 +188,6 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
                 chipsSymptomsCheck = arrayListOf()
                 chipsSymptomsCheckDistinct = arrayListOf()
                 chipsSymptomsCheck = arrayListOf()
-                viewModel.graph(bindingGeneralPage.graph, requireContext(), bindingGeneralPage.scrollGraph, bindingGeneralPage.txtOnbord)
-                bindingGeneralPage.scrollGraph.post {
-                    bindingGeneralPage.scrollGraph.fullScroll(View.FOCUS_RIGHT)
-                }
             }
         }
 
@@ -181,10 +195,6 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
             viewModel.getDateTimeCalendar(bindingGeneralPage.txtRecord)
         }
         pickDate()
-
-        bindingGeneralPage.imgMore.setOnClickListener{
-            MoreChipsDialog().show(fragmentManager!!, "d")
-        }
     }
 
     private fun pickDate(){
@@ -207,5 +217,4 @@ class GeneralPage : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDi
         saveminute = minute
         bindingGeneralPage.txtRecord.text = "Record $saveday.${savemonth + 1}.$saveyear $savehour:$saveminute"
     }
-
 }
