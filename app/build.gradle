@@ -10,8 +10,8 @@ android {
         applicationId "com.flycode.sugarlevel"
         minSdk 21
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "1.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -69,5 +69,10 @@ dependencies {
 
     //Dialog
     implementation 'com.google.android.material:material:1.2.0'
+
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    //Share
+    implementation 'com.github.EsmaeelNabil:Share-em:1.0.7'
 
 }

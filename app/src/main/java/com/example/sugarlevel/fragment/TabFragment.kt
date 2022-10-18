@@ -31,6 +31,7 @@ class TabFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        //заполнение табов
         val pagerAdapter = PagerAdapter(childFragmentManager)
         bindingTab.viewPager.adapter = pagerAdapter
         bindingTab.tabs.setupWithViewPager(bindingTab.viewPager)
