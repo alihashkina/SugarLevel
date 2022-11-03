@@ -68,12 +68,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/txtOnbordB1" />
 
-                    <Button
-                        android:id="@+id/deleteCard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"/>
-
                 </LinearLayout>
 
                 <HorizontalScrollView
@@ -103,6 +97,12 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp">
+
+                    <Button
+                        android:id="@+id/deleteCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/txtRecord"

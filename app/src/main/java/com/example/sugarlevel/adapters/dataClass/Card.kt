@@ -11,4 +11,4 @@ data class Card (
     val cardSugarml: String?,
     val cardOther: String?,
     var id: Int
-        )
+)

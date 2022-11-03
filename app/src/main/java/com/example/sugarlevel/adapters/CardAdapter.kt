@@ -1,44 +1,37 @@
 package com.example.sugarlevel.adapters
 
-import android.R.id
 import android.annotation.SuppressLint
-import android.app.PendingIntent.getActivity
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.annotation.RequiresApi
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sugarlevel.R
 import com.example.sugarlevel.adapters.dataClass.Card
 import com.example.sugarlevel.databinding.CardStatisticsBinding
-import com.example.sugarlevel.db.MyDBHelper
-import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.bindingGeneralPage
 import com.example.sugarlevel.fragment.Statistics
 import com.example.sugarlevel.viewModel.GeneralPageViewModel
-import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.helper
-import im.dacer.androidcharts.LineView
 
 //адаптер для статистики
-class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
+class CardAdapter(): RecyclerView.Adapter<CardAdapter.CardHolder>() {
 
     companion object{
+        var deleteCard = false
+        var id = 0
+        var idDB = 0
+}
+
+    lateinit var context: Context
     val cardList = ArrayList<Card>()
-         var id: Int = 0
-    }
 
     class CardHolder(item: View): RecyclerView.ViewHolder(item){
 
-        var bindingCardAdapter = CardStatisticsBinding.bind(item)
+        val bindingCardAdapter = CardStatisticsBinding.bind(item)
 
+        @SuppressLint("NotifyDataSetChanged")
         fun bind(card: Card, index: Int) = with(bindingCardAdapter){
             cardDate.text = card.cardDate
             cardHealthy.text = card.cardHealthy
@@ -48,6 +41,7 @@ class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
             cardSugar.text = card.cardSugar
             cardSugarml.text = card.cardSugarml
             cardOther.text = card.cardOther
+            id = card.id
 
             //кнопка поделиться/удалить
             cardMore.setOnClickListener {
@@ -74,8 +68,9 @@ class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
                         }
                         R.id.delete ->
                         {
-                            id = index+1
-                            Statistics.adapter.deleteCard(index)
+                            idDB = card.id
+                            Statistics.adapter.deleteCard()
+                            Statistics.adapter.updateDelete(index)
                         }
                     }
                     true
@@ -83,11 +78,11 @@ class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
                 popupMenu.show()
             }
         }
-        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_statistics, parent, false)
-    return CardHolder(view)
+        return CardHolder(view)
     }
 
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
@@ -100,24 +95,32 @@ class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
 
     //добавить карточку
     fun addCard(card: Card){
+        deleteCard = false
         cardList.add(card)
         notifyDataSetChanged()
     }
 
     //удалить карочку
-    fun deleteCard(index: Int){
-        GeneralPageViewModel.deleteCard = true
-        var db = helper.writableDatabase
+    fun deleteCard(){
+        deleteCard = true
         if(cardList.size == 1){
-            db.delete("USERS", null, null)
-            bindingGeneralPage.scrollGraph.visibility = View.GONE
-            bindingGeneralPage.txtOnbord.visibility = View.VISIBLE
-        }else{
-            db.delete("USERS", "USERID=${id}", null)
-            bindingGeneralPage.deleteCard.callOnClick()
+            GeneralPageViewModel().deleteAllDB()
         }
-        cardList.removeAt(index)
+        else{
+            GeneralPageViewModel().deleteCardDB()
+        }
+    }
+
+    //очистка адаптера
+    fun update(){
+        cardList.clear()
         notifyDataSetChanged()
+    }
+
+    //обновление адаптера после удаления
+    fun updateDelete(index: Int){
+        cardList.removeAt(index)
+            notifyDataSetChanged()
     }
 
 }

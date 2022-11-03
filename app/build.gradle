@@ -10,8 +10,8 @@ android {
         applicationId "com.flycode.sugarlevel"
         minSdk 21
         targetSdk 32
-        versionCode 5
-        versionName "1.4"
+        versionCode 7
+        versionName "1.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -74,5 +74,10 @@ dependencies {
 
     //Share
     implementation 'com.github.EsmaeelNabil:Share-em:1.0.7'
+
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
 }
