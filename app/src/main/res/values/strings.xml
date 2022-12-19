@@ -90,4 +90,7 @@
     <string name="share">Share</string>
     <string name="delete">Delete</string>
     <string name="date">Date</string>
+    <string name="toastSave">Saved</string>
+    <string name="toastDelete">The entry was deleted</string>
+    <string name="stsOnbord">There are no records yet</string>
 </resources>

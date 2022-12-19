@@ -8,9 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.sugarlevel.adapters.dataClass.Card
 import com.example.sugarlevel.db.MyDBHelper
+import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.Statistics
 import java.math.RoundingMode
 
 class StatisticsViewModel : ViewModel() {
-
+    companion object{
+    var counterSts: MutableLiveData<Boolean> = MutableLiveData(true)
+    }
 }

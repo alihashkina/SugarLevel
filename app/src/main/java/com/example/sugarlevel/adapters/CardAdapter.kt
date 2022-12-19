@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sugarlevel.R
 import com.example.sugarlevel.adapters.dataClass.Card
 import com.example.sugarlevel.databinding.CardStatisticsBinding
+import com.example.sugarlevel.fragment.GeneralPage
 import com.example.sugarlevel.fragment.GeneralPage.Companion.bindingGeneralPage
 import com.example.sugarlevel.fragment.Statistics
 import com.example.sugarlevel.viewModel.GeneralPageViewModel
@@ -24,7 +25,6 @@ class CardAdapter(): RecyclerView.Adapter<CardAdapter.CardHolder>() {
         var idDB = 0
 }
 
-    lateinit var context: Context
     val cardList = ArrayList<Card>()
 
     class CardHolder(item: View): RecyclerView.ViewHolder(item){
@@ -34,13 +34,13 @@ class CardAdapter(): RecyclerView.Adapter<CardAdapter.CardHolder>() {
         @SuppressLint("NotifyDataSetChanged")
         fun bind(card: Card, index: Int) = with(bindingCardAdapter){
             cardDate.text = card.cardDate
-            cardHealthy.text = card.cardHealthy
-            cardUnhealthy.text = card.cardUnhealthy
-            cardSymptoms.text = card.cardSymptoms
-            cardCare.text = card.cardCare
+            cardHealthy.text = card.cardHealthy?.replace("[", "")?.replace("]", "")
+            cardUnhealthy.text = card.cardUnhealthy?.replace("[", "")?.replace("]", "")
+            cardSymptoms.text = card.cardSymptoms?.replace("[", "")?.replace("]", "")
+            cardCare.text = card.cardCare?.replace("[", "")?.replace("]", "")
             cardSugar.text = card.cardSugar
             cardSugarml.text = card.cardSugarml
-            cardOther.text = card.cardOther
+            cardOther.text = card.cardOther?.replace("[", "")?.replace("]", "")
             id = card.id
 
             //кнопка поделиться/удалить
@@ -69,7 +69,7 @@ class CardAdapter(): RecyclerView.Adapter<CardAdapter.CardHolder>() {
                         R.id.delete ->
                         {
                             idDB = card.id
-                            Statistics.adapter.deleteCard()
+                            Statistics.adapter.deleteCard(it.context)
                             Statistics.adapter.updateDelete(index)
                         }
                     }
@@ -97,18 +97,18 @@ class CardAdapter(): RecyclerView.Adapter<CardAdapter.CardHolder>() {
     fun addCard(card: Card){
         deleteCard = false
         cardList.add(card)
-        notifyDataSetChanged()
+       notifyDataSetChanged()
     }
 
     //удалить карочку
-    fun deleteCard(){
+    fun deleteCard(context: Context){
         deleteCard = true
         if(cardList.size == 1){
-            GeneralPageViewModel().deleteAllDB()
+            GeneralPageViewModel().deleteAllDB(context)
         }
         else{
-            GeneralPageViewModel().deleteCardDB()
-        }
+            GeneralPageViewModel().deleteCardDB(context)
+            }
     }
 
     //очистка адаптера

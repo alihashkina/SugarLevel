@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/chip_state_care.xml" value="0.2064814814814815" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_add.xml" value="0.2890625" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_calendar.xml" value="0.2890625" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_care.xml" value="0.2890625" />
@@ -16,7 +17,7 @@
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/drawable/ic_unhealthy.xml" value="0.2890625" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/card_statistics.xml" value="0.33" />
-        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/general_page_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/general_page_fragment.xml" value="0.22" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/more_chips_dialog_fragment.xml" value="0.2975582055650199" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/statistics_fragment.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Marina/AndroidStudioProjects/SugarLevel/app/src/main/res/layout/tab_fragment.xml" value="0.2653061224489796" />

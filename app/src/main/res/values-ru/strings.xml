@@ -90,4 +90,7 @@
     <string name="share">Поделиться</string>
     <string name="delete">Удалить</string>
     <string name="date">Дата</string>
+    <string name="toastSave">Сохранено</string>
+    <string name="toastDelete">Запись удалена</string>
+    <string name="stsOnbord">Записей пока нет</string>
 </resources>

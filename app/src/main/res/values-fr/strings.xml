@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <resources>
+
+    <string name="app_name">Niveau de sucre</string>
+
+    <string name="txtOnbordH6">Comment utiliser cette application</string>
+
+    <string name="txtOnbordB1">Réglez votre niveau de sucre actuel et appuyez sur le bouton Enregistrer. Vous pouvez utiliser mg/dl ou mmol/l, définissez simplement le premier nombre que vous voulez, et nous nous souviendrons du système le plus préférable pour vous.\n\nVous pouvez également modifier la date et définir des balises exactes sur votre activité, votre alimentation et votre santé. Vous pouvez vérifier toutes ces données dans l\'onglet statistiques.\n\nNous sommes heureux de vous aider à suivre votre taux de sucre et à rester en bonne santé</string>
+
+    <string name="record">Enregistrement</string>
+
+    <string name="save">sauvegarder</string>
+
+    <string name="healthy">En bonne santé</string>
+
+    <string name="dairy">Laitier</string>
+
+    <string name="diet">Diète</string>
+
+    <string name="gardening">Jardinage</string>
+
+    <string name="goodSleep">Bon sommeil</string>
+
+    <string name="highFiberFood">Aliment riche en fibres</string>
+
+    <string name="housework">Travaux ménagers</string>
+
+    <string name="seafood">Fruits de mer</string>
+
+    <string name="sex">Sexe</string>
+
+    <string name="sport">sport</string>
+
+    <string name="stretching">Élongation</string>
+
+    <string name="vegetables">Des légumes</string>
+
+    <string name="walking">En marchant</string>
+
+    <string name="yoga">Yoga</string>
+
+    <string name="otherPhysicalActivity">Autre activité physique</string>
+
+    <string name="txtUnhealthy">Mauvais pour la santé</string>
+
+    <string name="alcohol">De l\'alcool</string>
+
+    <string name="fastfood">Restauration rapide</string>
+
+    <string name="fruitJuices">Jus de fruits</string>
+
+    <string name="irregularEating">Alimentation irrégulière</string>
+
+    <string name="lateDinner">Dîner tardif</string>
+
+    <string name="longSitting">Longue assise</string>
+
+    <string name="noActivity">Aucune activité</string>
+
+    <string name="pastry">Pâtisserie</string>
+
+    <string name="processedFood">Aliments transformés</string>
+
+    <string name="smoking">Fumeur</string>
+
+    <string name="soda">Un soda</string>
+
+    <string name="stress">Stresser</string>
+
+    <string name="sugar">Sucre</string>
+
+    <string name="sweets">Bonbons</string>
+
+    <string name="otherUnhealthyHabit">Autre habitude malsaine</string>
+
+    <string name="txtSymptoms">Les symptômes</string>
+
+    <string name="blurryVision">Vue floue</string>
+
+    <string name="confused">Confus</string>
+
+    <string name="coordinationProblems">Problèmes de coordination</string>
+
+    <string name="crankyOrImpatient">Grincheux ou impatient</string>
+
+    <string name="decreasedVision">Diminution de la vision</string>
+
+    <string name="dizzy">Vertigineux</string>
+
+    <string name="dryMouth">Bouche sèche</string>
+
+    <string name="drySkin">Peau sèche</string>
+
+    <string name="energetic">Énergique</string>
+
+    <string name="fastHeartbeat">Rythme cardiaque rapide</string>
+
+    <string name="fatigue">Fatigue</string>
+
+    <string name="feelWell">Se sentir bien</string>
+
+    <string name="goodMood">Bonne humeur</string>
+
+    <string name="happy">Heureux</string>
+
+    <string name="headache">Mal de tête</string>
+
+    <string name="healSlowly">Guérir lentement</string>
+
+    <string name="hunger">Faim</string>
+
+    <string name="itchySkin">La peau qui gratte</string>
+
+    <string name="loseWeightWithoutTrying">Perdre du poids sans essayer</string>
+
+    <string name="nausea">Nausée</string>
+
+    <string name="nervous">Nerveux</string>
+
+    <string name="nightmares">Cauchemars</string>
+
+    <string name="numbOrTinglingHandsOrFeet">Mains ou pieds engourdis ou picotements</string>
+
+    <string name="paleSkin">Peau pâle</string>
+
+    <string name="shaky">Précaire</string>
+
+    <string name="sleepy">Somnolent</string>
+
+    <string name="sweaty">En sueur</string>
+
+    <string name="thirsty">Assoiffé</string>
+
+    <string name="urinateALot">Uriner beaucoup</string>
+
+    <string name="weak">Faible</string>
+
+    <string name="otherSymptoms">Autres symptômes</string>
+
+    <string name="txtCare">Se soucier</string>
+
+    <string name="alphaGlucosidaseInhibitors">Inhibiteurs de l\'alpha-glucosidase</string>
+
+    <string name="amylinomimeticDrug">Médicament amylinomimétique</string>
+
+    <string name="biguanides">Biguanides</string>
+
+    <string name="dopamineAgonists">Agonistes de la dopamine</string>
+
+    <string name="dPP4Inhibitors">Inhibiteurs DPP-4</string>
+
+    <string name="gLP1ReceptorAgonists">Agonistes des récepteurs GLP-1</string>
+
+    <string name="insulin">Insuline</string>
+
+    <string name="meglitinides">Méglitinides</string>
+
+    <string name="sGLTInhibitors">Inhibiteurs du SGLT</string>
+
+    <string name="sulfonylureas">Sulfonylurées</string>
+
+    <string name="thiazolidinediones">Thiazolidinediones</string>
+
+    <string name="otherDrugs">Autres drogues</string>
+
+    <string name="statistics">Statistiques</string>
+
+    <string name="btnMinus">Le taux de sucre est réduit</string>
+
+    <string name="btnPlus">Le taux de sucre est augmenté</string>
+
+    <string name="btnSave">Données enregistrées</string>
+
+    <string name="txtOtherTags">Autres balises</string>
+
+    <string name="btnOtherTags">Ajouter</string>
+
+    <string name="editTxtOtherTags">Entrez une balise supplémentaire</string>
+
+    <string name="share">Partager</string>
+
+    <string name="delete">Effacer</string>
+
+    <string name="date">Date</string>
+
+    <string name="toastSave">Enregistré</string>
+
+    <string name="toastDelete">L\'entrée a été supprimée</string>
+
+    <string name="stsOnbord">Il n\'y a pas encore d\'enregistrements</string>
+
+</resources>
