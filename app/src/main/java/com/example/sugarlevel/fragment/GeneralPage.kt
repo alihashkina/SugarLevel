@@ -33,10 +33,6 @@ import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.arrayDate
 import com.example.sugarlevel.viewModel.GeneralPageViewModel.Companion.arraySugarGraph
 import com.example.sugarlevel.viewModel.StatisticsViewModel
 import com.example.sugarlevel.viewModel.StatisticsViewModel.Companion.counterSts
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartSymbolType
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
-import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -123,7 +119,7 @@ class GeneralPage : Fragment() {
 
             //наблюдатель обновление графика
             viewModel.counter.observe(viewLifecycleOwner, Observer{
-                graph(scrollGraph, txtOnbord)
+                graph(graph, scrollGraph, txtOnbord)
             })
 
             //текст на кнопке сохранить
@@ -131,11 +127,11 @@ class GeneralPage : Fragment() {
 
             //невидимая кнопка для удаления карточки - костыль
             deleteCard.setOnClickListener {
-                graph(scrollGraph, txtOnbord)
+                graph(graph, scrollGraph, txtOnbord)
             }
 
             //получение графика
-            viewModel.readDB()
+            viewModel.readDB(requireContext())
 
             //прослушиватель для изменения кнопки сохранить
             txtSugar.addTextChangedListener(object : TextWatcher {
@@ -203,7 +199,13 @@ class GeneralPage : Fragment() {
                         careSelectedItems, daysVM, monthVM, yearsVM, hoursVM, minuteVM, otherSelectedItems, tinyDB.getInt("idDB"))
 
                     //обновляем график
-                    viewModel.readDB()
+                    viewModel.readDB(requireContext())
+
+                    chipGroupHealthy.clearCheck()
+                    chipGroupUnhealthy.clearCheck()
+                    chipGroupSymptoms.clearCheck()
+                    chipGroupCare.clearCheck()
+                    chipGroupOtherTags.clearCheck()
 
                     Toast.makeText(requireContext(), requireContext().getString(R.string.toastSave), Toast.LENGTH_SHORT).show()
                     scrollGeneral.post {
@@ -344,7 +346,7 @@ class GeneralPage : Fragment() {
         btnSave.text = "${txtSugar.text} ${context.getString(R.string.save)}"
     }
 
-    fun graph(scrollGraph: HorizontalScrollView, txtOnbord: LinearLayout) {
+    fun graph(graph: LineView, scrollGraph: HorizontalScrollView, txtOnbord: LinearLayout) {
         if (!tinyDB.getString("DateDB").isEmpty()) {
 
             counterSts.value?.let {
@@ -354,26 +356,16 @@ class GeneralPage : Fragment() {
             bindingGeneralPage.txtOnbord.visibility = View.GONE
             scrollGraph.visibility = View.VISIBLE
 
-            val aaChartModel: AAChartModel = AAChartModel()
-                .chartType(AAChartType.Spline)
-                .backgroundColor("#FFFFFF")
-                .dataLabelsEnabled(true)
-                .legendEnabled(true)
-                .animationDuration(10)
-                .yAxisVisible(true)
-                .yAxisLabelsEnabled(false)
-                .yAxisTitle("")
-                .markerSymbol(AAChartSymbolType.Circle)
-                .colorsTheme(arrayOf("#29B6FC"))
-                .categories(arrayDateGraph.toTypedArray())
-                .series(
-                    arrayOf(
-                        AASeriesElement()
-                            .name(this.getString(R.string.sugar))
-                            .data(arraySugarGraph.toTypedArray())
-                    )
-                )
-            bindingGeneralPage.aaChartView.aa_drawChartWithChartModel(aaChartModel)
+            var sugarLists = ArrayList<ArrayList<Float>>()
+            sugarLists = arrayListOf(arraySugarGraph as ArrayList<Float>)
+            graph.setDrawDotLine(false) //optional
+            graph.getResources().getColor(R.color.md_white_1000)
+            graph.setShowPopup(LineView.SHOW_POPUPS_All) //optional
+            graph.setBottomTextList(arrayDateGraph as ArrayList<String>?)
+            graph.setColorArray(intArrayOf(Color.RED))
+            graph.marginBottom
+            graph.paddingBottom
+            graph.setFloatDataList(sugarLists)
 
             tinyDB.remove("DateDB")
 
@@ -381,9 +373,6 @@ class GeneralPage : Fragment() {
             scrollGraph.post {
                 scrollGraph.fullScroll(View.FOCUS_RIGHT)
             }
-        }else{
-            txtOnbord.visibility = View.VISIBLE
-            scrollGraph.visibility = View.GONE
         }
     }
 

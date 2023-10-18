@@ -14,10 +14,6 @@ import com.example.sugarlevel.fragment.TabFragment
 
 class MainActivity : AppCompatActivity() {
 
-    companion object{
-        lateinit var helper: MyDBHelper
-    }
-
     private val REQUEST_EXTERNAL_STORAGE = 1
     private val PERMISSIONS_STORAGE = arrayOf<String>(
         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -68,13 +64,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        helper = MyDBHelper(this)
-        helper.close()
+        MyDBHelper(this).close()
     }
 
     override fun onResume() {
         super.onResume()
-        helper = MyDBHelper(this)
-        helper.readableDatabase
+        MyDBHelper(this).readableDatabase
     }
 }

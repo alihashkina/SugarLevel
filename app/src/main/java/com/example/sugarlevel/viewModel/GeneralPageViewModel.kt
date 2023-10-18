@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sugarlevel.MainActivity.Companion.helper
 import com.example.sugarlevel.R
 import com.example.sugarlevel.adapters.CardAdapter
 import com.example.sugarlevel.adapters.CardAdapter.Companion.deleteCard
@@ -60,8 +59,8 @@ class GeneralPageViewModel : ViewModel() {
         MyDBHelper(context).writableDatabase.insert("USERS", null, cv)
     }
 
-    fun readDB(){
-        var db = helper.readableDatabase
+    fun readDB(context: Context){
+        var db = MyDBHelper(context).readableDatabase
         var rs = db.rawQuery(
             "SELECT DATE, SUGAR, CHIPSHEALTHY, CHIPSUNHEALTHY, CHIPSSYMPTOMS, CHIPSCARE, CHIPSOTHER, DAYS, MONTH, YEARS, HOURS, MINUTE, ID FROM USERS ORDER BY YEARS, MONTH, DAYS, HOURS, MINUTE ASC",
             null
@@ -119,17 +118,19 @@ class GeneralPageViewModel : ViewModel() {
 
     fun deleteAllDB(context: Context){
         Toast.makeText(context, context.getString(R.string.toastDelete), Toast.LENGTH_SHORT).show()
-        helper.writableDatabase.delete("USERS", null, null)
+        MyDBHelper(context).writableDatabase.delete("USERS", null, null)
+        bindingGeneralPage.scrollGraph.visibility = View.GONE
+        bindingGeneralPage.txtOnbord.visibility = View.VISIBLE
         counterSts.value?.let {
             counterSts.value = true
         }
-        readDB()
+        readDB(context)
     }
 
     fun deleteCardDB(context: Context){
         Toast.makeText(context, context.getString(R.string.toastDelete), Toast.LENGTH_SHORT).show()
-        helper.writableDatabase.delete("USERS", "USERID=${CardAdapter.idDB}", null)
-        readDB()
+        MyDBHelper(context).writableDatabase.delete("USERS", "USERID=${CardAdapter.idDB}", null)
+        readDB(context)
         bindingGeneralPage.deleteCard.callOnClick()
     }
 
